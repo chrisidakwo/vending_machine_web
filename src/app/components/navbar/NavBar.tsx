@@ -1,9 +1,12 @@
 import { AppBar, Box, Container } from '@mui/material';
-import React, { useContext, MouseEvent } from 'react';
+import React, { useContext, MouseEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { AuthContext } from '../../auth';
-import { UserRole } from '../../utils/models';
+import { Modal } from '../../ui-kit/modal';
+import { ModalCloseReason } from '../../ui-kit/modal/Modal';
+import { User, UserRole } from '../../utils/models';
+import { DepositForm } from '../deposit-form';
 
 const NavContainer = styled(Container)`
   display: flex !important;
@@ -55,15 +58,32 @@ const UserInfo = styled(Link)<{ userRole: UserRole | undefined }>`
   }
 `;
 
-const DepositSection = styled.span``; 
+const DepositSection = styled.span`
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
 export const NavBar = (): JSX.Element => {
   const { user, onLogout } = useContext(AuthContext);
+  const [despositAmount, setDepositAmount] = useState(user?.deposit ?? 0);
+  const [openDepositModal, setOpenDepositModal] = useState(false);
 
   const handleLogout = (e: MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
     onLogout && onLogout();
-  }
+  };
+
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  const handleCloseDepositModal = (event: {}, reason: ModalCloseReason): void => {
+    if (reason === 'backdropClick') {
+      return;
+    }
+
+    setOpenDepositModal(false);
+  };
   
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', position: 'relative' }}>
@@ -77,14 +97,21 @@ export const NavBar = (): JSX.Element => {
             <AuthSection>
               <UserInfo to={'/'} onClick={handleLogout} userRole={user?.role}>Logout</UserInfo>
               {user?.role === 'buyer' && (
-                <DepositSection>
-                  Current Balance : ¢{user?.deposit}
+                <DepositSection onClick={() => setOpenDepositModal(true)}>
+                  Current Balance : ¢{despositAmount}
                 </DepositSection>
               )}
             </AuthSection>
           </Box>
         </NavContainer>
       </AppBar>
+
+      <Modal title={'Deposit'} open={openDepositModal} onClose={handleCloseDepositModal}>
+        <DepositForm onDeposit={(user: User) => {
+          setDepositAmount(user.deposit);
+          setOpenDepositModal(false);
+        }}/>
+      </Modal>
     </Box>
   );
 }
