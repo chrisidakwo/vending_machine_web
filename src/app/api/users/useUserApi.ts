@@ -1,5 +1,3 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../auth";
 import { AuthClient, Client } from "../Client";
 import { CreateUserData } from "./types";
 

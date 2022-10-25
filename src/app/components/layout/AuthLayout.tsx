@@ -13,7 +13,7 @@ export const AuthLayout: FC<PropsWithChildren<AuthLayoutProps>> = ({ title, chil
       <PageContainer>
         <ContentContainer layout={'auth'}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-            <Card variant={'outlined'} sx={{ width: '350px', padding: '20px' }}>
+            <Card sx={{ width: '350px', padding: '20px' }}>
               <h2 style={{ marginTop: '0px', marginBottom: '25px' }}>{title}</h2>
 
               {children}
