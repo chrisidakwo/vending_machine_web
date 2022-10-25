@@ -1,0 +1,466 @@
+//
+// Grid system
+// --------------------------------------------------
+
+@import "base/base";
+
+// Container widths
+//
+// Set the container width, and override it for fixed navbars in media queries.
+
+.container {
+  @include container-fixed;
+
+  @media (min-width: $screen-sm-min) {
+    width: $container-sm;
+  }
+  @media (min-width: $screen-md-min) {
+    width: $container-md;
+  }
+  @media (min-width: $screen-lg-min) {
+    width: $container-lg;
+  }
+}
+
+
+// Fluid container
+//
+// Utilizes the mixin meant for fixed width containers, but without any defined
+// width for fluid, full width layouts.
+
+.container-fluid {
+  @include container-fixed;
+}
+
+// Semi-fluid containers
+//
+// Containers that switch from fixed to fluid below a certain breakpoint
+
+.container-semifluid-sm {
+  @include container-fixed;
+
+  @media (min-width: $screen-md-min) {
+    width: $container-md;
+  }
+  @media (min-width: $screen-lg-min) {
+    width: $container-lg;
+  }
+}
+
+.container-semifluid-md {
+  @include container-fixed;
+
+  @media (min-width: $screen-lg-min) {
+    width: $container-lg;
+  }
+}
+
+// Row
+//
+// Rows contain and clear the floats of your columns.
+
+.row {
+  @include make-row;
+}
+
+
+// Columns
+//
+// Common styles for small and large grid columns
+
+@include make-grid-columns;
+
+
+// Extra small grid
+//
+// Columns, offsets, pushes, and pulls for extra small devices like
+// smartphones.
+
+@include make-grid(xs);
+
+
+// Small grid
+//
+// Columns, offsets, pushes, and pulls for the small device range, from phones
+// to tablets.
+
+@media (min-width: $screen-sm-min) {
+  @include make-grid(sm);
+}
+
+
+// Medium grid
+//
+// Columns, offsets, pushes, and pulls for the desktop device range.
+
+@media (min-width: $screen-md-min) {
+  @include make-grid(md);
+}
+
+
+// Large grid
+//
+// Columns, offsets, pushes, and pulls for the large desktop device range.
+
+@media (min-width: $screen-lg-min) {
+  @include make-grid(lg);
+}
+
+
+
+
+
+
+.row, .form-group {
+  &.no-gutter {
+    margin-left: 0;
+    margin-right: 0;
+    > [class*='col-'] {
+        padding-right: 0;
+        padding-left: 0;
+    }
+  }
+  &.small-gutter {
+    margin-left: -5px;
+    margin-right: -5px;
+    > [class*='col-'] {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+  }
+}
+
+
+.row-full-height {
+    height: 100%
+}
+.row-space-1 {
+    margin-bottom: 6.25px
+}
+.row-space-top-1 {
+    margin-top: 6.25px
+}
+.row-space-2 {
+    margin-bottom: 12.5px
+}
+.row-space-top-2 {
+    margin-top: 12.5px
+}
+.row-space-3 {
+    margin-bottom: 18.75px
+}
+.row-space-top-3 {
+    margin-top: 18.75px
+}
+.row-space-4 {
+    margin-bottom: 25px
+}
+.row-space-top-4 {
+    margin-top: 25px
+}
+.row-space-5 {
+    margin-bottom: 31.25px
+}
+.row-space-top-5 {
+    margin-top: 31.25px
+}
+.row-space-6 {
+    margin-bottom: 37.5px
+}
+.row-space-top-6 {
+    margin-top: 37.5px
+}
+.row-space-7 {
+    margin-bottom: 43.75px
+}
+.row-space-top-7 {
+    margin-top: 43.75px
+}
+.row-space-8 {
+    margin-bottom: 50px
+}
+.row-space-top-8 {
+    margin-top: 50px
+}
+
+
+
+
+
+
+
+
+
+.space-0 {
+    margin-bottom: 0px !important;
+}
+.space-top-0 {
+    margin-top: 0px !important;
+}
+.space-1 {
+    margin-bottom: 6.25px !important;
+}
+.space-top-1 {
+    margin-top: 6.25px !important;
+}
+.space-2 {
+    margin-bottom: 12.5px !important;
+}
+.space-top-2 {
+    margin-top: 12.5px !important;
+}
+.space-3 {
+    margin-bottom: 18.75px !important;
+}
+.space-top-3 {
+    margin-top: 18.75px !important;
+}
+.space-4 {
+    margin-bottom: 25px !important;
+}
+.space-top-4 {
+    margin-top: 25px !important;
+}
+.space-5 {
+    margin-bottom: 31.25px !important;
+}
+.space-top-5 {
+    margin-top: 31.25px !important;
+}
+.space-6 {
+    margin-bottom: 37.5px !important;
+}
+.space-top-6 {
+    margin-top: 37.5px !important;
+}
+.space-7 {
+    margin-bottom: 43.75px !important;
+}
+.space-top-7 {
+    margin-top: 43.75px !important;
+}
+.space-8 {
+    margin-bottom: 50px !important;
+}
+.space-top-8 {
+    margin-top: 50px !important;
+}
+@media (max-width: 767px) {
+    .space-sm-0 {
+        margin-bottom: 0px !important;
+    }
+    .space-top-sm-0 {
+        margin-top: 0px !important;
+    }
+    .space-sm-1 {
+        margin-bottom: 6.25px !important;
+    }
+    .space-top-sm-1 {
+        margin-top: 6.25px !important;
+    }
+    .space-sm-2 {
+        margin-bottom: 12.5px !important;
+    }
+    .space-top-sm-2 {
+        margin-top: 12.5px !important;
+    }
+    .space-sm-3 {
+        margin-bottom: 18.75px !important;
+    }
+    .space-top-sm-3 {
+        margin-top: 18.75px !important;
+    }
+    .space-sm-4 {
+        margin-bottom: 25px !important;
+    }
+    .space-top-sm-4 {
+        margin-top: 25px !important;
+    }
+    .space-sm-5 {
+        margin-bottom: 31.25px !important;
+    }
+    .space-top-sm-5 {
+        margin-top: 31.25px !important;
+    }
+    .space-sm-6 {
+        margin-bottom: 37.5px !important;
+    }
+    .space-top-sm-6 {
+        margin-top: 37.5px !important;
+    }
+    .space-sm-7 {
+        margin-bottom: 43.75px !important;
+    }
+    .space-top-sm-7 {
+        margin-top: 43.75px !important;
+    }
+    .space-sm-8 {
+        margin-bottom: 50px !important;
+    }
+    .space-top-sm-8 {
+        margin-top: 50px !important;
+    }
+}
+@media (min-width: 768px) and (max-width: 1099px) {
+    .space-md-0 {
+        margin-bottom: 0px !important;
+    }
+    .space-top-md-0 {
+        margin-top: 0px !important;
+    }
+    .space-md-1 {
+        margin-bottom: 6.25px !important;
+    }
+    .space-top-md-1 {
+        margin-top: 6.25px !important;
+    }
+    .space-md-2 {
+        margin-bottom: 12.5px !important;
+    }
+    .space-top-md-2 {
+        margin-top: 12.5px !important;
+    }
+    .space-md-3 {
+        margin-bottom: 18.75px !important;
+    }
+    .space-top-md-3 {
+        margin-top: 18.75px !important;
+    }
+    .space-md-4 {
+        margin-bottom: 25px !important;
+    }
+    .space-top-md-4 {
+        margin-top: 25px !important;
+    }
+    .space-md-5 {
+        margin-bottom: 31.25px !important;
+    }
+    .space-top-md-5 {
+        margin-top: 31.25px !important;
+    }
+    .space-md-6 {
+        margin-bottom: 37.5px !important;
+    }
+    .space-top-md-6 {
+        margin-top: 37.5px !important;
+    }
+    .space-md-7 {
+        margin-bottom: 43.75px !important;
+    }
+    .space-top-md-7 {
+        margin-top: 43.75px !important;
+    }
+    .space-md-8 {
+        margin-bottom: 50px !important;
+    }
+    .space-top-md-8 {
+        margin-top: 50px !important;
+    }
+}
+@media (min-width: 1100px) {
+    .space-lg-0 {
+        margin-bottom: 0px !important;
+    }
+    .space-top-lg-0 {
+        margin-top: 0px !important;
+    }
+    .space-lg-1 {
+        margin-bottom: 6.25px !important;
+    }
+    .space-top-lg-1 {
+        margin-top: 6.25px !important;
+    }
+    .space-lg-2 {
+        margin-bottom: 12.5px !important;
+    }
+    .space-top-lg-2 {
+        margin-top: 12.5px !important;
+    }
+    .space-lg-3 {
+        margin-bottom: 18.75px !important;
+    }
+    .space-top-lg-3 {
+        margin-top: 18.75px !important;
+    }
+    .space-lg-4 {
+        margin-bottom: 25px !important;
+    }
+    .space-top-lg-4 {
+        margin-top: 25px !important;
+    }
+    .space-lg-5 {
+        margin-bottom: 31.25px !important;
+    }
+    .space-top-lg-5 {
+        margin-top: 31.25px !important;
+    }
+    .space-lg-6 {
+        margin-bottom: 37.5px !important;
+    }
+    .space-top-lg-6 {
+        margin-top: 37.5px !important;
+    }
+    .space-lg-7 {
+        margin-bottom: 43.75px !important;
+    }
+    .space-top-lg-7 {
+        margin-top: 43.75px !important;
+    }
+    .space-lg-8 {
+        margin-bottom: 50px !important;
+    }
+    .space-top-lg-8 {
+        margin-top: 50px !important;
+    }
+}
+
+
+/*
+    Row table
+*/
+
+.row.row-table {
+    width: 100%;
+    width: calc(100% + #{$grid-gutter-width});
+}
+:root .row.row-table {
+    width: 100% \9
+}
+.row-table {
+    display: table;
+    table-layout: fixed
+}
+.row-full-height {
+    height: 100%
+}
+
+.col-top,
+.col-middle,
+.col-bottom {
+    float: none;
+    display: table-cell
+}
+
+@media (min-width: $screen-sm-min) {
+    .col-sm-top,
+    .col-sm-middle,
+    .col-sm-bottom {
+        float: none;
+        display: table-cell
+    }
+}
+
+.col-top {
+    vertical-align: top
+}
+.col-middle {
+    vertical-align: middle
+}
+.col-bottom {
+    vertical-align: bottom
+}
+.col-center {
+    float: none;
+    margin-left: auto;
+    margin-right: auto
+}

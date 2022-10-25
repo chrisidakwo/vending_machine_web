@@ -1,16 +1,24 @@
+import { createBrowserHistory } from 'history';
+import React from 'react';
 import { UIDReset } from 'react-uid';
 import { renderRoutes } from 'react-router-config';
 import routeConfig from './app/router/routeConfig';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
+import './index.css';
+import { ThemeProvider } from './app/theme';
+
+const history = createBrowserHistory();
 
 const App = (): JSX.Element => {
   return (
-    <BrowserRouter>
+    <ThemeProvider>
       <UIDReset>
-        {renderRoutes(routeConfig())}
+        <Router history={history}>
+          {renderRoutes(routeConfig())}
+        </Router>
       </UIDReset>
-    </BrowserRouter>
-  )
-}
+    </ThemeProvider>
+  );
+};
 
 export default App;
