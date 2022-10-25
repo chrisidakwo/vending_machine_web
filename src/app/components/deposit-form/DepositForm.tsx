@@ -5,6 +5,7 @@ import { Auth, AuthContext } from '../../auth';
 import { FormEvent, useContext, useState } from 'react';
 import colors from '../../theme/definitions/colors';
 import { useUserApi } from '../../api';
+import { User } from '../../utils/models';
 
 export interface DepositFormProps {
   onDeposit: (user: User) => void;
