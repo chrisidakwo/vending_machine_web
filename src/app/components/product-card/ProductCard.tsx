@@ -4,6 +4,7 @@ import { Product } from "../../utils/models";
 
 export interface ProductCardProps {
   product: Product;
+  onProductClicked: (product: Product) => void;
 }
 
 const StyledCard = styled(Card)`
@@ -36,12 +37,7 @@ const ProductCost = styled.span`
   font-weight: 700;
 `;
 
-export const ProductCard = ({ product }: ProductCardProps): JSX.Element => {
-
-  const onProductClicked = (product: Product): void => {
-    alert(product.productName);
-  };
-
+export const ProductCard = ({ product, onProductClicked }: ProductCardProps): JSX.Element => {
   return (
     <StyledCard onClick={() => onProductClicked(product)}>
       <ProductName>{product.productName}</ProductName>

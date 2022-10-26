@@ -42,6 +42,7 @@ const StyledModalTitle = styled(DialogTitle)`
     color: ${colors.font};
     font-weight: 700 !important;
     padding: 15px 8px !important;
+    width: 75%;
 `;
 
 const StyledModalContent = styled(DialogContent)`

@@ -1,8 +1,8 @@
 import { useLocalStorage } from 'react-use';
 import { FormGroup, FormControl, FormHelperText, Button, InputLabel, MenuItem, OutlinedInput, Select } from "@mui/material";
 import { FormField } from "../../ui-kit/form";
-import { Auth, AuthContext } from '../../auth';
-import { FormEvent, useContext, useState } from 'react';
+import { Auth } from '../../auth';
+import { FormEvent, useState } from 'react';
 import colors from '../../theme/definitions/colors';
 import { useUserApi } from '../../api';
 import { User } from '../../utils/models';
@@ -21,8 +21,7 @@ const MenuProps = {
 };
 
 export const DepositForm = ({ onDeposit }: DepositFormProps): JSX.Element => {
-  const [auth, setAuth] = useLocalStorage<Auth>('auth');
-  const { user } = useContext(AuthContext);
+  const [, setAuth] = useLocalStorage<Auth>('auth');
   const [depositAmount, setDepositAmount] = useState<number>(0);
   const [errors, setErrors] = useState({
     deposit: [],

@@ -5,6 +5,7 @@ import { AuthClient } from '../Client';
 export interface UseProductsApiReturnProps {
   getProducts: () => Promise<Product[]>;
   createProduct: (data: ProductFormData) => Promise<Product>;
+  buyProduct: (product: Product, quantity: number) => Promise<unknown>;
 }
 
 export const useProductsApi = () => {
@@ -35,8 +36,21 @@ export const useProductsApi = () => {
     }).catch((error) => {
       return Promise.reject(error.response.data);
     }) as Promise<Product>;
-  }
+  };
 
+  const buyProduct = (product: Product, quantity: number): Promise<unknown> => {
+    const auth = JSON.parse(localStorage.getItem('auth') as string);
+    const client = new AuthClient(auth.accessToken);
 
-  return { getProducts, createProduct };
+    return client.request({
+      url: '/buy',
+      method: 'POST',
+      data: {
+        product: product.id,
+        quantity,
+      }
+    });
+  };
+
+  return { getProducts, createProduct, buyProduct };
 }
