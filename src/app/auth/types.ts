@@ -11,6 +11,7 @@ export interface LoginData {
 }
 
 export interface AuthActions {
+  setAuthUser?: (user: User) => void;
   onLogin?: (data: LoginData) => Promise<unknown>;
   onLogout?: () => Promise<unknown>;
 }

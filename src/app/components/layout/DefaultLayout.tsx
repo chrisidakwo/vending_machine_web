@@ -14,7 +14,6 @@ export const DefaultLayout: FC<PropsWithChildren<LayoutProps>> = ({ children }):
       <PageContainer>
         <ContentContainer layout={'default'}>
           <NavBar />
-
           {children}
         </ContentContainer>
       </PageContainer>

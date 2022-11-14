@@ -10,12 +10,12 @@ import { ProductCard } from "../../components/product-card";
 import colors from "../../theme/definitions/colors";
 import { FormField } from "../../ui-kit/form";
 import { Modal } from "../../ui-kit/modal";
-import { Product, User } from "../../utils/models";
+import { Product, ProductPurchaseResponse, User } from "../../utils/models";
 import { ProductForm } from "./components";
 
 const HomePage = (): JSX.Element => {
   const [, setAuth] = useLocalStorage<Auth>('auth');
-  const { user } = useContext(AuthContext);
+  const { user, setAuthUser } = useContext(AuthContext);
   const [products, setProducts] = useState<Product[]>([]);
   const [openModal, setOpenModal] = useState(false);
   const [confirmPurchaseModal, setConfirmPurchaseModal] = useState(false);
@@ -25,6 +25,7 @@ const HomePage = (): JSX.Element => {
   const [errors, setErrors] = useState({
     quantity: [],
   });
+  
   const { getProducts, buyProduct } = useProductsApi();
 
   /**
@@ -51,7 +52,7 @@ const HomePage = (): JSX.Element => {
   };
 
   const purchaseProduct = (): void => {
-    if (parseInt(purchaseQuantity) == 0) {
+    if (parseInt(purchaseQuantity) < 1) {
       setErrors({
         // @ts-ignore
         quantity: ['Quantity should be at least 1'],
@@ -62,15 +63,38 @@ const HomePage = (): JSX.Element => {
       });
     }
 
-    buyProduct(selectedProduct as Product, parseInt(purchaseQuantity)).then((response: any) => {
-      console.log('purchase response', response);
-
+    buyProduct(selectedProduct as Product, parseInt(purchaseQuantity)).then((response: ProductPurchaseResponse) => {
       setAuth((auth) => {
-        return {
-          accessToken: auth?.accessToken as string | null,
-          user: { ...auth?.user, deposit: response.remainingDeposit } as User,
+        if (undefined !== auth) {
+          return {
+            ...auth,
+            user: { ...auth?.user, deposit: response.remainingDeposit } as User,
+          }
         }
+
+        return auth;
       });
+
+      setPurchaseQuantity('0');
+      setConfirmPurchaseModal(false);
+
+      let change = 'No change';
+
+      // TODO: use alert to show change
+      if (Object.values(response.change).length > 0) {
+        change = 'Your change consists of ';
+        const amounts = [];
+
+        for(const key in response.change) {
+          amounts.push(`${response.change[key]} ¢${key}`);
+        }
+
+        change += amounts.join(', ').replace(/, ([^,]*)$/, ', and $1');
+      }
+
+      alert(change);
+
+      location.reload();
     }).catch((error) => {
       if (error.response.status == 422) {
         setErrors(error.response.data.errors);
@@ -156,8 +180,6 @@ const HomePage = (): JSX.Element => {
             <Typography variant={'h6'} sx={{ color: colors.grey.light.darkest }}>There are no products</Typography>
           </Box>
         )}
-
-
       </SectionContainer>
     </DefaultLayout>
   );

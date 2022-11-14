@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Product, ProductFormData } from '../../utils/models';
+import { Auth } from '../../auth';
+import { Product, ProductFormData, ProductPurchaseResponse } from '../../utils/models';
 import { AuthClient } from '../Client';
 
 export interface UseProductsApiReturnProps {
   getProducts: () => Promise<Product[]>;
   createProduct: (data: ProductFormData) => Promise<Product>;
-  buyProduct: (product: Product, quantity: number) => Promise<unknown>;
+  buyProduct: (product: Product, quantity: number) => Promise<ProductPurchaseResponse>;
 }
 
 export const useProductsApi = () => {
   const getProducts = (): Promise<Product[]> => {
-    const auth = JSON.parse(localStorage.getItem('auth') as string);
-    const client = new AuthClient(auth.accessToken);
+    const auth = JSON.parse(localStorage.getItem('auth') as string) as Auth;
+    const client = new AuthClient(auth.accessToken as string);
 
     return client.request({
       url: '/products',
@@ -24,8 +25,9 @@ export const useProductsApi = () => {
   };
 
   const createProduct = (data: ProductFormData): Promise<Product> => {
-    const auth = JSON.parse(localStorage.getItem('auth') as string);
-    const client = new AuthClient(auth.accessToken);
+    // We can easily cast because we're pretty confident that should a user get to this point, they must be logged in
+    const auth = JSON.parse(localStorage.getItem('auth') as string) as Auth;
+    const client = new AuthClient(auth.accessToken as string);
 
     return client.request({
       url: '/products',
@@ -38,9 +40,9 @@ export const useProductsApi = () => {
     }) as Promise<Product>;
   };
 
-  const buyProduct = (product: Product, quantity: number): Promise<unknown> => {
-    const auth = JSON.parse(localStorage.getItem('auth') as string);
-    const client = new AuthClient(auth.accessToken);
+  const buyProduct = (product: Product, quantity: number): Promise<ProductPurchaseResponse> => {
+    const auth = JSON.parse(localStorage.getItem('auth') as string) as Auth;
+    const client = new AuthClient(auth.accessToken as string);
 
     return client.request({
       url: '/buy',
@@ -49,7 +51,7 @@ export const useProductsApi = () => {
         product: product.id,
         quantity,
       }
-    });
+    }) as Promise<ProductPurchaseResponse>;
   };
 
   return { getProducts, createProduct, buyProduct };

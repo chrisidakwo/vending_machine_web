@@ -10,3 +10,16 @@ export interface ProductFormData {
   cost: number;
   quantity_available: number;
 }
+
+export interface ProductPurchaseResponse {
+  purchases: ProductPurchaseResponseProduct[],
+  totalPurchaseAmount: number,
+  remainingDeposit: number,
+  change: Record<string, number>
+}
+
+export interface ProductPurchaseResponseProduct {
+  purchaseCost: number;
+  purchaseQuantity: number;
+  product: Product;
+}
