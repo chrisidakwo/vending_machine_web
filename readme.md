@@ -13,3 +13,5 @@ Frontend React app for Vending Machine API
 #### Side Note
 
 The menu nav items for username and deposit amout are interactable. Clicking on them triggerss relevant actions such as initiating the deposit process.
+
+Clicking on a product card initiates the purchase process.
