@@ -12,7 +12,7 @@ export const AuthContext = createContext<Auth & AuthActions>({
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }): JSX.Element => {
   const [auth, setAuth] = useLocalStorage<Auth>('auth', {
-    accessToken: JSON.parse(localStorage.getItem('auth') as string).accessToken,
+    accessToken: JSON.parse(localStorage.getItem('auth') as string)?.accessToken ?? null,
     user: JSON.parse(localStorage.getItem('auth.user') as string) as User | null,
   });
 
